@@ -1,5 +1,6 @@
 package com.example.androidworrkshop.ui
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -25,7 +26,7 @@ class MatchListActivity : AppCompatActivity() {
 
     lateinit var binding : ActivityMatchListBinding
     lateinit var viewModel : MainViewModel
-    private var MatchInfo : MatchInfo ?= null
+    private var MatchInfo : MatchInfo?=null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_match_list)
@@ -78,31 +79,40 @@ class MatchListActivity : AppCompatActivity() {
         for(i in 0..MatchInfo?.matchDetails?.size!!-1){
 //            Log.e("num",i.toString())
             try {
-//                Log.e("Match", MatchInfo?.matchDetails!![i].matchDetailsMap.match[0].toString())
                 matchList.add(MatchInfo?.matchDetails!![i].matchDetailsMap.match[0])
             }catch (e:Exception){
-                Log.e("error",e.toString())
+                Log.e("Error",e.toString())
             }
 
         }
 
-        var matchListUpcoming:MutableList<Match> = arrayListOf()
-        var matchListLive:MutableList<Match> = arrayListOf()
-        var matchListPast:MutableList<Match> = arrayListOf()
+
+        var allMatches:MutableList<Match> = arrayListOf()
+        var count1:Int=0
+        var count2:Int=0
+        var count3:Int=0
 
         for(i in matchList){
             try {
-                if(i.matchInfo.state=="Complete")matchListPast.add(i)
-                else if(i.matchInfo.state=="Upcoming")matchListUpcoming.add(i)
-                else matchListLive.add(i)
+                allMatches.add(i)
+
+                if(i.matchInfo.state=="Complete") count1++
+                else if(i.matchInfo.state=="Upcoming")count2++
+                else count3++
+
+
             }catch (e:Exception){
                 Log.e("error_ll",e.toString())
             }
 
+//            allMatches.addAll(matchListUpcoming)
+//            allMatches.addAll(matchListLive)
+//            allMatches.addAll(matchListPast)
 
         }
 //        Log.e("Match Upcoming",matchListUpcoming.toString())
-        val adapterUp=MatchAdapter(this,matchListUpcoming)
+        val adapterUp=MatchAdapter(this,allMatches, count1,count3)
+
 
         try {
             val rvUp =findViewById<RecyclerView>(R.id.rv_upMatches)
@@ -114,26 +124,25 @@ class MatchListActivity : AppCompatActivity() {
 
 
 
-        val adapterLive=MatchAdapter(this,matchListLive)
-
-        try {
-            val rvLive =findViewById<RecyclerView>(R.id.rv_liveMatches)
-            rvLive.layoutManager=LinearLayoutManager(this)
-            rvLive.adapter=adapterLive
-        }catch (e:Exception){
-            Log.e("error",e.toString())
-        }
-
-
-        val adapterPast=MatchAdapter(this,matchListPast)
-
-        try {
-            val rvLive =findViewById<RecyclerView>(R.id.rv_pastMatches)
-            rvLive.layoutManager=LinearLayoutManager(this)
-            rvLive.adapter=adapterPast
-        }catch (e:Exception){
-            Log.e("error",e.toString())
-        }
+//        val adapterLive=MatchAdapter(this,matchListLive)//
+//        try {
+//            val rvLive =findViewById<RecyclerView>(R.id.rv_liveMatches)
+//            rvLive.layoutManager=LinearLayoutManager(this)
+//            rvLive.adapter=adapterLive
+//        }catch (e:Exception){
+//            Log.e("error",e.toString())
+//        }
+//
+//
+//        val adapterPast=MatchAdapter(this,matchListPast)
+//
+//        try {
+//            val rvLive =findViewById<RecyclerView>(R.id.rv_pastMatches)
+//            rvLive.layoutManager=LinearLayoutManager(this)
+//            rvLive.adapter=adapterPast
+//        }catch (e:Exception){
+//            Log.e("error",e.toString())
+//        }
 
 
         Log.e("Done","Done")

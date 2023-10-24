@@ -1,9 +1,243 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.MatchInfoActivity">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:title="ICC WORLD CUP"
+        android:background="@drawable/img"
+        app:titleTextAppearance="@style/toolbarTitle"
+        app:titleTextColor="@color/white" />
+
+
+    <TextView
+        android:id="@+id/tvScorecard"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Scorecard"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:textSize="22sp"
+        android:fontFamily="@font/inter_semibold"/>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cvScorecard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        app:cardCornerRadius="10dp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
+        app:cardElevation="25dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_gravity="center"
+                android:layout_marginTop="15dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/inter_bold"
+                    android:text="TOSS:"
+                    android:textColor="#AC11A1"
+                    android:textSize="15sp" />
+                <TextView
+                    android:id="@+id/tvToss"
+                    android:layout_marginLeft="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Bangladesh won and chose bowling"
+                    android:textColor="#000000"
+                    android:paddingTop="1dp"
+                    android:textSize="14sp"
+                    android:fontFamily="@font/inter_medium"/>
+
+            </LinearLayout>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/inter_bold"
+                android:text="Man of the Match"
+                android:textColor="#AC11A1"
+                android:textSize="14sp" />
+            <TextView
+                android:id="@+id/tvMOM"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Jos Buttler"
+                android:layout_gravity="center"
+                android:fontFamily="@font/inter_semibold"
+                android:textColor="#000000"
+                android:textSize="14sp"
+                android:layout_marginTop="3dp"
+                />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:orientation="horizontal"
+                android:gravity="center">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:gravity="left"
+                    >
+                    
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:layout_gravity="center_horizontal"
+                        tools:ignore="Suspicious0dp">
+                        <ImageView
+                            android:id="@+id/ivTeam1"
+                            android:layout_width="60dp"
+                            android:layout_height="35dp"
+                            android:layout_gravity="center"/>
+                        <TextView
+                        android:id="@+id/tvTeam1"
+                        android:layout_width="match_parent"
+                        android:layout_marginTop="5dp"
+                            android:layout_height="wrap_content"
+                        android:fontFamily="@font/inter_bold"
+                        android:gravity="center"
+                        android:text="ENG"
+                        android:textColor="#000000"
+                        android:textSize="23sp"
+                            />
+                    <TextView
+                        android:id="@+id/tvTeam1Score"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:fontFamily="@font/inter_semibold"
+                        android:gravity="center"
+                        android:text="364/9"
+                        android:textSize="13sp" />
+                    <TextView
+                        android:id="@+id/tvTeam1Overs"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/inter_semibold"
+                        android:text="(50)"
+                        android:gravity="center"
+                        android:textSize="13sp"/>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="vs"
+                    android:gravity="center"
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/inter_medium"
+                    android:textSize="14sp"
+                    />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:layout_weight="1"
+                    >
+                    <ImageView
+                        android:id="@+id/ivTeam2"
+                        android:layout_width="60dp"
+                        android:layout_height="35dp"
+                        android:layout_gravity="center"/>
+                    <TextView
+                        android:id="@+id/tvTeam2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/inter_bold"
+                        android:gravity="center"
+                        android:text="BAN"
+                        android:layout_marginTop="5dp"
+                        android:textColor="#000000"
+                        android:textSize="23sp" />
+
+                    <TextView
+                        android:id="@+id/tvTeam2Score"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:fontFamily="@font/inter_semibold"
+                        android:gravity="center"
+                        android:text="227/10"
+                        android:textSize="13sp" />
+                    <TextView
+                        android:id="@+id/tvTeam2Overs"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/inter_semibold"
+                        android:text="(48.2)"
+                        android:gravity="center"
+                        android:textSize="13sp"/>
+                </LinearLayout>
+
+            </LinearLayout>
+            <TextView
+                android:id="@+id/tvResult"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="England won by 137 runs"
+                android:fontFamily="@font/inter_semibold"
+                android:layout_marginTop="40dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="ODI"
+                android:fontFamily="@font/inter_bold"
+                android:textSize="16sp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"/>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/animationView"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/loading_animation" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

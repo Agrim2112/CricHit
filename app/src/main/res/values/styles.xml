@@ -1,0 +1,7 @@
+<resources>
+    <style name="toolbarTitle" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">37sp</item>
+        <item name="android:fontFamily">@font/inter_bold</item>
+        <item name="android:textAlignment">center</item>
+    </style>
+</resources>
