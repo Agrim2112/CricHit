@@ -1,6 +1,5 @@
 package com.example.androidworrkshop.ui
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -14,6 +13,7 @@ import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 import com.example.androidworrkshop.R
+import com.example.androidworrkshop.databinding.ActivityLiveMatchInfoBinding
 import com.example.androidworrkshop.databinding.ActivityMatchInfoBinding
 import com.example.androidworrkshop.di.Resource
 import com.example.androidworrkshop.model.leanback
@@ -21,14 +21,14 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlin.math.roundToInt
 
 @AndroidEntryPoint
-class MatchInfoActivity : AppCompatActivity() {
+class LiveMatchInfo : AppCompatActivity() {
 
-    private var binding :ActivityMatchInfoBinding?=null
+    private var binding :ActivityLiveMatchInfoBinding?=null
     lateinit var viewModel : MainViewModel
     lateinit var  scoreCard:leanback
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding=ActivityMatchInfoBinding.inflate(layoutInflater)
+        binding=ActivityLiveMatchInfoBinding.inflate(layoutInflater)
         setContentView(binding?.root)
 
         val receivedIntent = intent
@@ -43,16 +43,10 @@ class MatchInfoActivity : AppCompatActivity() {
 //            viewModel.getMatchScore(matchId)
         }
 
-
-        binding?.tvFullScorecard?.setOnClickListener()
-        {
-            val intent=Intent(this,LiveMatchInfo::class.java)
-            intent.putExtra("matchId",matchId)
-            startActivity(intent)
-        }
-
         setObservers()
     }
+
+
 
     private fun setObservers() {
         viewModel.performFetchMatchesScoreStatus.observe(this, Observer {
@@ -75,36 +69,64 @@ class MatchInfoActivity : AppCompatActivity() {
 //                    binding.emptyDialog.visibility = View.GONE
 //                    ImageList = it.data
                     Log.d("Result",it.data.toString())
+
+
                     binding?.tvScorecard?.visibility=View.VISIBLE
                     binding?.cvScorecard?.visibility=View.VISIBLE
                     binding?.animationView?.visibility=View.GONE
+
                     scoreCard= it.data!!
                     binding?.tvToss?.text=scoreCard.miniscore.matchScoreDetails.tossResults.tossWinnerName+" won and chose "+ scoreCard.miniscore.matchScoreDetails.tossResults.decision.lowercase()
                     binding?.tvTeam1?.text=scoreCard.miniscore.matchScoreDetails.matchTeamInfo[0].battingTeamShortName
                     binding?.tvTeam2?.text=scoreCard.miniscore.matchScoreDetails.matchTeamInfo[0].bowlingTeamShortName
                     binding?.tvTeam1Score?.text=scoreCard.miniscore.matchScoreDetails.inningsScoreList[1].score.toString()+"/"+scoreCard.miniscore.matchScoreDetails.inningsScoreList[1].wickets.toString()
                     binding?.tvTeam2Score?.text=scoreCard.miniscore.matchScoreDetails.inningsScoreList[0].score.toString()+"/"+scoreCard.miniscore.matchScoreDetails.inningsScoreList[0].wickets.toString()
-                    if(scoreCard.miniscore.matchScoreDetails.inningsScoreList[1].overs.roundToInt()-scoreCard.miniscore.matchScoreDetails.inningsScoreList[1].overs==0.4) {
-                        binding?.tvTeam1Overs?.text =
-                            "(" + scoreCard.miniscore.matchScoreDetails.inningsScoreList[1].overs.roundToInt() + ")"
+                    binding?.tvBatter1?.text=scoreCard.miniscore.batsmanStriker.batName
+                    binding?.tvBatter1Score?.text=scoreCard.miniscore.batsmanStriker.batRuns.toString()+" ("+scoreCard.miniscore.batsmanStriker.batBalls.toString()+")"
+                    binding?.tvBatter2?.text=scoreCard.miniscore.batsmanNonStriker.batName
+                    binding?.tvBatter2Score?.text=scoreCard.miniscore.batsmanNonStriker.batRuns.toString()+" ("+scoreCard.miniscore.batsmanNonStriker.batBalls.toString()+")"
+                    binding?.tvBowler1?.text=scoreCard.miniscore.bowlerStriker.bowlName
+                    binding?.tvBowler1Score?.text=scoreCard.miniscore.bowlerStriker.bowlWkts.toString()+"/"+scoreCard.miniscore.bowlerStriker.bowlRuns+" ("+scoreCard.miniscore.bowlerStriker.bowlOvs.toString()+")"
+                    binding?.tvBowler2?.text=scoreCard.miniscore.bowlerNonStriker.bowlName
+                    binding?.tvBowler2Score?.text=scoreCard.miniscore.bowlerNonStriker.bowlWkts.toString()+"/"+scoreCard.miniscore.bowlerNonStriker.bowlRuns+" ("+scoreCard.miniscore.bowlerNonStriker.bowlOvs.toString()+")"
+                    binding?.tvTeam1Overs?.text = "(" + scoreCard.miniscore.matchScoreDetails.inningsScoreList[1].overs + ")"
+                    binding?.tvTeam2Overs?.text = "(" + scoreCard.miniscore.matchScoreDetails.inningsScoreList[0].overs + ")"
+                    binding?.tvCRR?.text="CRR: "+scoreCard.miniscore.currentRunRate.toString()
+                    if(scoreCard.miniscore.recentOvsStats.isNullOrEmpty()||scoreCard.miniscore.recentOvsStats.isBlank())
+                    {
+                        binding?.llRecentOvers?.visibility=View.GONE
                     }
                     else
                     {
-                        binding?.tvTeam1Overs?.text =
-                            "(" + scoreCard.miniscore.matchScoreDetails.inningsScoreList[1].overs + ")"
+                        binding?.tvRecentOvers?.text=scoreCard.miniscore.recentOvsStats
                     }
-                    if(scoreCard.miniscore.matchScoreDetails.inningsScoreList[0].overs.rem(1)==0.6) {
-                        binding?.tvTeam2Overs?.text =
-                            "(" + scoreCard.miniscore.matchScoreDetails.inningsScoreList[0].overs+0.4 + ")"
+                    if(scoreCard.miniscore.lastWicket.isNullOrEmpty()||scoreCard.miniscore.lastWicket.isBlank())
+                    {
+                        binding?.llLastWicket?.visibility=View.GONE
                     }
                     else
                     {
-                        binding?.tvTeam2Overs?.text =
-                            "(" + scoreCard.miniscore.matchScoreDetails.inningsScoreList[0].overs + ")"
+                        binding?.tvLastWicket?.text=scoreCard.miniscore.lastWicket
                     }
-                    binding?.tvMOM?.text=scoreCard.matchHeader.playersOfTheMatch[0].fullName
+                    if(scoreCard.miniscore.partnerShip.runs.toString().isNullOrEmpty()||scoreCard.miniscore.partnerShip.runs.toString().isBlank())
+                    {
+                        binding?.llPartnership?.visibility=View.GONE
+                    }
+                    else
+                    {
+                        binding?.tvPartnership?.text=scoreCard.miniscore.partnerShip.runs.toString()+" ("+scoreCard.miniscore.partnerShip.balls.toString()+")"
+                    }
+                    if(scoreCard.miniscore.requiredRunRate.toString().isNullOrEmpty()||scoreCard.miniscore.requiredRunRate.toString().isBlank())
+                    {
+                        binding?.tvRRR?.visibility=View.GONE
+                    }
+                    else
+                    {
+                        binding?.tvRRR?.text="RRR: "+scoreCard.miniscore.requiredRunRate.toString()
+                    }
+
                     binding?.tvResult?.text=scoreCard.miniscore.matchScoreDetails.customStatus
-                    scoreCard.matchHeader.playersOfTheMatch[0].faceImageId
+
 
                     if(scoreCard.miniscore.matchScoreDetails.matchTeamInfo[0].bowlingTeamShortName=="IND") {
                         Glide.with(this)

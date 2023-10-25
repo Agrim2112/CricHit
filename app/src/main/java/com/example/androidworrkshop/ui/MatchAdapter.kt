@@ -76,11 +76,13 @@ class MatchAdapter(private val context: Context, private val MatchDetails : Muta
         }
 
         holder.itemView.setOnClickListener{
-           if(model.matchInfo.state!="Upcoming"){
+           if(model.matchInfo.state=="Complete"){
                val intent=Intent(context,MatchInfoActivity::class.java)
                intent.putExtra("matchId",model.matchInfo.matchId.toString())
                context.startActivity(intent)
-           }else{
+           }
+           else
+           {
                Toast.makeText(context, "No Scorecard available", Toast.LENGTH_SHORT).show()
            }
        }

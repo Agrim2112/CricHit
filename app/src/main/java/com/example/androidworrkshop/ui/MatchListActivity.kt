@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.AdapterView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -32,6 +33,7 @@ class MatchListActivity : AppCompatActivity() {
         setContentView(R.layout.activity_match_list)
 
         viewModel = ViewModelProvider(this)[MainViewModel::class.java]
+
 
         viewModel.getMatches()
 

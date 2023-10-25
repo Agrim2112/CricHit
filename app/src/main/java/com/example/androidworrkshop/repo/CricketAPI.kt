@@ -12,7 +12,7 @@ import retrofit2.http.Path
 interface CricketAPI {
 
     @Headers(
-        "X-RapidAPI-Key:075c3ba302msh595f47dc2435f2ep1e060djsn73db450e52fc",
+        "X-RapidAPI-Key:148e628a88msh7d9ed34390b2f26p109943jsn9bcd9beae9ba",
         "X-RapidAPI-Host:cricbuzz-cricket.p.rapidapi.com"
     )
     @GET("series/v1/6732")
@@ -21,7 +21,7 @@ interface CricketAPI {
 
 
     @Headers(
-        "X-RapidAPI-Key:075c3ba302msh595f47dc2435f2ep1e060djsn73db450e52fc",
+        "X-RapidAPI-Key:148e628a88msh7d9ed34390b2f26p109943jsn9bcd9beae9ba",
         "X-RapidAPI-Host:cricbuzz-cricket.p.rapidapi.com"
     )
     @GET("mcenter/v1/{id}/leanback")

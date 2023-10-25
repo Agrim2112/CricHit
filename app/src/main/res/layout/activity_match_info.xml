@@ -69,7 +69,6 @@
 
             </LinearLayout>
 
-
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -90,6 +89,7 @@
                 android:textSize="14sp"
                 android:layout_marginTop="3dp"
                 />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -104,7 +104,7 @@
                     android:orientation="horizontal"
                     android:gravity="left"
                     >
-                    
+
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_weight="1"
@@ -216,6 +216,19 @@
                 android:text="ODI"
                 android:fontFamily="@font/inter_bold"
                 android:textSize="16sp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"/>
+
+            <TextView
+                android:id="@+id/tvFullScorecard"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:textColor="#AC11A1"
+                android:padding="15dp"
+                android:text="View Full Scorecard"
+                android:fontFamily="@font/inter_semibold"
+                android:textSize="12sp"
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="20dp"/>
         </LinearLayout>
